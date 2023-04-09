@@ -21,6 +21,7 @@ CREATE TABLE Tasks(
    TaskName VARCHAR(50) NOT NULL,
    Note VARCHAR(200),
    DeadLine DATE,
+   Done BOOLEAN NOT NULL DEFAULT 0,
    PRIMARY KEY(userId, listId, taskId),
    FOREIGN KEY(userId, listId) REFERENCES Lists(userId, listId)
 );
@@ -31,6 +32,7 @@ CREATE TABLE Steps(
    taskId INT,
    stepId INT AUTO_INCREMENT,
    stepName VARCHAR(50) NOT NULL,
+   Done BOOLEAN NOT NULL DEFAULT 0,
    PRIMARY KEY(userId, listId, taskId, stepId),
    FOREIGN KEY(userId, listId, taskId) REFERENCES Tasks(userId, listId, taskId)
 );
