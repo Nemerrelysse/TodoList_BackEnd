@@ -1,9 +1,47 @@
 <?php
 
+require __DIR__ . '/vendor/autoload.php';
+
+
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$secret = 'gzyeflgsm674*&';
+
 $routes=[
 
     "/login"=>function(){
-        //TODO
+        $username=$_POST['login'];
+
+        $password=$_POST['password'];
+        global $db;
+        $stmt= $db->prepare("select * from users WHERE email = ? AND password=?");
+        $stmt->execute([$username,$password]);
+        $ids =$stmt -> fetchAll();
+        if(count($ids)!==1){
+            http_response_code(400);
+            return;
+        }
+        
+        $userId = $ids[0];
+        $expiration = time() + 3600;
+        $issuedAt= time();
+
+        $data=[
+            'id'=>$userId,
+            'exp'=>$expiration,
+            'iat'=>$issuedAt
+        ];
+        
+        global $secret;
+        $token = JWT::encode(
+            $data,
+            $secret,
+            'HS512'
+        );
+
+        return $token;
     },
 
     "/signUp"=>function(){
