@@ -80,7 +80,26 @@ $routes=[
     },
 
     "/postList"=>function(){
-        //TODO
+        if(isset($_POST['list']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
+            $jwt=$_SERVER['HTTP_AUTHORIZATION'];
+            global $secret;
+            $token = JWT::decode($jwt, new Key($secret, 'HS256'));
+            $now = new DateTimeImmutable();
+            if (
+                $token->exp < $now->getTimestamp()||
+                $token->iat > $now->getTimestamp() )
+            {
+                header('HTTP/1.1 401 Unauthorized');
+                exit;
+            }
+            $list=$_POST['list'];
+            $userId=$token->id;
+            $stmt= $db->prepare("insert into lists (userId, listName) values (?,?)");
+            $stmt->execute([$userId, $list]);
+        }
+        else{
+            http_response_code(500);
+        }
     },
 
     "/getLists"=>function(){
