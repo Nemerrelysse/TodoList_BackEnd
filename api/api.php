@@ -89,8 +89,10 @@ $routes=[
                 $token->exp < $now->getTimestamp()||
                 $token->iat > $now->getTimestamp() )
             {
-                header('HTTP/1.1 401 Unauthorized');
-                exit;
+                http_response_code(400);
+                echo json_encode([
+                    "err"=>"vous n'êtes pas connecté"
+                ]);
             }
             $list=$_POST['list'];
             $userId=$token->id;
@@ -127,6 +129,25 @@ $routes=[
     },
 
     "/([0-9]+)/updateTask/([0-9]+)"=>function($id){
+        //exemple verification de connexion
+        if(isset($_SERVER['HTTP_AUTHORIZATION'])){
+            $jwt=$_SERVER['HTTP_AUTHORIZATION'];
+            global $secret;
+            $token = JWT::decode($jwt, new Key($secret, 'HS256'));
+            $now = new DateTimeImmutable();
+            if (
+                $token->exp < $now->getTimestamp()||
+                $token->iat > $now->getTimestamp() )
+            {
+                http_response_code(400);
+                echo json_encode([
+                    "err"=>"vous n'êtes pas connecté"
+                ]);
+            }
+        }
+        //exemple recupération des id de liste et tache dans l'url (pour les steps ce sera $id[0][2])
+        $listId=$id[0][0];
+        $taskId=$id[0][1];
         //TODO
     },
 
