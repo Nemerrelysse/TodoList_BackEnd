@@ -15,11 +15,14 @@ $routes=[
         $username=$_POST['login'];
         $password=$_POST['password'];
         global $db;
-        $stmt= $db->prepare("select * from users WHERE email = ? AND password=?");
+        $stmt= $db->prepare("select * from users WHERE email=? AND password=?");
         $stmt->execute([$username,$password]);
         $ids =$stmt -> fetchAll();
         if(count($ids)!==1){
             http_response_code(400);
+            echo json_encode([
+                "err"=>"mauvais identifiants"
+            ]);
             return;
         } 
         $userId = $ids[0];
@@ -43,8 +46,33 @@ $routes=[
         $username=$_POST['login'];
         $password=$_POST['password'];
         $passwordCheck=$_POST['passwordCheck'];
-
-
+        if(!isset($username) || !isset($password) || !isset($passwordCheck)){
+            http_response_code(400);
+            echo json_encode([
+                "err"=>"merci de remplir toutes les cases du formulaire"
+            ]);
+            return;
+        }
+        if($password !== $passwordCheck){
+            http_response_code(400);
+            echo json_encode([
+                "err"=>"les mots de passe ne correspondent pas"
+            ]);
+            return;
+        }
+        global $db;
+        $stmt=$db->prepare("select count(*) from users where email=?");
+        $stmt->execute([$username]);
+        $sameUsername= $stmt->fetchAll();
+        if(count($sameUsername)!=0){
+            http_response_code(400);
+            echo json_encode([
+                "err"=>"un compte est déjà associé à cet email"
+            ]);
+            return;
+        }
+        $stmt=$db->prepare("intert into users (email,password) values (?,?)");
+        $stmt->execute([$username,$password]);
     },
 
     "/logout"=>function(){
