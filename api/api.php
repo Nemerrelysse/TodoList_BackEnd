@@ -13,7 +13,6 @@ $routes=[
 
     "/login"=>function(){
         $username=$_POST['login'];
-
         $password=$_POST['password'];
         global $db;
         $stmt= $db->prepare("select * from users WHERE email = ? AND password=?");
@@ -22,30 +21,30 @@ $routes=[
         if(count($ids)!==1){
             http_response_code(400);
             return;
-        }
-        
+        } 
         $userId = $ids[0];
         $expiration = time() + 3600;
         $issuedAt= time();
-
         $data=[
             'id'=>$userId,
             'exp'=>$expiration,
             'iat'=>$issuedAt
-        ];
-        
+        ];       
         global $secret;
         $token = JWT::encode(
             $data,
             $secret,
             'HS512'
         );
-
         return $token;
     },
 
     "/signUp"=>function(){
-        //TODO
+        $username=$_POST['login'];
+        $password=$_POST['password'];
+        $passwordCheck=$_POST['passwordCheck'];
+
+
     },
 
     "/logout"=>function(){

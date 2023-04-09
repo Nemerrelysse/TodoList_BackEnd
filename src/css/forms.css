@@ -1,0 +1,136 @@
+/* forms */
+
+.login,
+.sign__up,
+.forgotten__password,
+.update__password {
+  height: 56.25rem;
+  max-width: 90rem;
+  width: 100%;
+  margin: 0 auto;
+  background-color: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__form,
+.sign__up__form,
+.forgotten__password__form,
+.update__password__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--font-color);
+}
+
+.email,
+.password,
+.confirm__password {
+  height: 3rem;
+  width: 21.875rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #adadad;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #222222;
+  margin-top: 0.5rem;
+}
+
+.email,
+.password,
+.confirm__password {
+  margin-bottom: 1.5rem;
+}
+
+.email:hover,
+.password:hover,
+.confirm__password:hover {
+  border: 1px solid #666666;
+}
+
+.email.error,
+.password.error,
+.confirm__password.error {
+  margin-bottom: 0.5rem;
+}
+
+.email::placeholder,
+.password::placeholder,
+.confirm__password::placeholder {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #adadad;
+}
+
+.submit__btn {
+  width: 21.875rem;
+  height: 3rem;
+  margin-bottom: 1.5rem;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.submit__btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.form__links {
+  text-align: center;
+}
+
+.forget__password__link,
+.sign__up__link {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.forget__password__link {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.sign__up__link {
+  display: block;
+}
+
+.field__error {
+  font-size: 1rem;
+  color: var(--error-color);
+  font-weight: 400;
+  margin-bottom: 1.125rem;
+}
+
+.invalid__feedback {
+  font-size: 1rem;
+  color: var(--error-color);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.valid__feedback {
+  width: 100%;
+  max-width: 45rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--success-color);
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}

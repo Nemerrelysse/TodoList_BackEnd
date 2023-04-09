@@ -1,0 +1,35 @@
+/* css variables */
+:root {
+  --color-primary: #ff7675;
+  --color-primary-hover: #e06867;
+  --background-color: #fdfdfd;
+  --font-color: #222222;
+  --error-color: #d63031;
+  --success-color: #27ae60;
+  --sidebar-color: #f5f5f5;
+  --editarea-color: #f5f5f5;
+  --sidebar-tran: 0.5s;
+  --editarea-tran: 0.5s;
+  --main-tran: 0.5s;
+  --modal-tran: 0.5s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif !important;
+}
